@@ -22,7 +22,8 @@ module.exports.createCartItem = async (req, res) => {
 
 module.exports.getCartItem = async (req, res) => {
     try {
-        const cartItems = await Cart.find({user: req.user._id});
+        const cartItems = await Cart.find({user: req.user._id})
+            .populate('product', 'name');
         if (cartItems.length > 0) {
             return res.status(200).send(cartItems);
         } else {
